@@ -137,14 +137,96 @@ int checkWin(int actualRow, int actualCol){
     return 1;
 }
 
-int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int *num_o) {   
-
+int findFourInARowExist(int num_rows, int num_cols){
+    for(int i = 0; i < num_rows; i++){
+        for(int j = 0; j < num_cols; j++){
+            if(checkFourInARow(i, j, num_rows, num_cols, board[i][j])){
+                return INITIAL_BOARD_FOUR_IN_A_ROW;
+            }
+        }
+    }
     return 0;
-    (void) initial_state;
-    (void) num_rows;
-    (void) num_cols;
-    (void) num_x; 
-    (void) num_o;
+}
+
+int invalidCharactersExist(int num_rows, int num_cols){
+    for(int i = 0; i < num_rows; i++){
+        for(int j = 0; j < num_cols; j++){
+            if(board[i][j] != 'o' && board[i][j] != 'x'){
+                if(board[i][j] != '-'){
+                    return INITIAL_BOARD_INVALID_CHARACTERS;
+                }
+            }
+        }
+    }
+    return 0;
+}
+
+int findSolution(int num_rows, int num_cols){
+    for(int i = 0; i < num_rows; i++){
+        for(int j = 0; j < num_cols; j++){
+            if(board[i][j] == '-'){
+               if(checkFourInARow(i, j, num_rows, num_cols, 'x')){
+                if(checkFourInARow(i, j, num_rows, num_cols, 'o')){
+                    return INITIAL_BOARD_NO_SOLUTION;
+                }
+                else{
+                    return FOUND_SOLUTION;
+                }
+               }
+
+               if(checkFourInARow(i, j, num_rows, num_cols, 'o')){
+                if(checkFourInARow(i, j, num_rows, num_cols, 'x')){
+                    return INITIAL_BOARD_NO_SOLUTION;
+                }
+                else{
+                    return FOUND_SOLUTION;
+                }
+               }
+            }
+        }
+    }
+    return HEURISTICS_FAILED;
+}
+
+int pieceCounter(int num_rows, int num_cols, char piece){
+    int counter = 0;
+    for(int i = 0; i < num_rows; i++){
+        for(int j = 0; j < num_cols; j++){
+            if(board[i][j] == piece){
+                counter++;
+            }
+        }
+    }
+    return counter;
+}
+
+
+int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int *num_o) {
+    initialize_board(initial_state, num_rows, num_cols);
+    *num_x = pieceCounter(num_rows, num_cols, 'x');
+    *num_o = pieceCounter(num_rows, num_cols, 'o');
+
+    if(findFourInARowExist(num_rows, num_cols) == -1){
+        if(invalidCharactersExist(num_rows, num_cols) == -2){
+        return INITIAL_BOARD_INVALID_CHARACTERS;
+        }
+        return INITIAL_BOARD_FOUR_IN_A_ROW;
+    }
+
+    if(invalidCharactersExist(num_rows, num_cols) == -2){
+        return INITIAL_BOARD_INVALID_CHARACTERS;
+    }
+
+    if(findSolution(num_rows, num_cols) == 1){
+        return FOUND_SOLUTION;
+    }
+    else if(findSolution(num_rows, num_cols) == -3){
+        return INITIAL_BOARD_NO_SOLUTION;
+    }
+    else if(findSolution(num_rows, num_cols) == 0){
+        return HEURISTICS_FAILED;
+    }
+    return 0;
 }
 
 char* generate_medium(const char *final_state, int num_rows, int num_cols) { 
