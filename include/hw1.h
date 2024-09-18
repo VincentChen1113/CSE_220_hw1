@@ -24,6 +24,11 @@ Hint: We defined these constants, you dont need to.
 void initialize_board(const char *initial_state, int num_rows, int num_cols);
 int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int *num_o);
 char* generate_medium(const char *final_state, int num_rows, int num_cols);
+void printBoard(int row, int col);
+int checkExist(int NUM_ROWS, int NUM_COLS);
+void putPiece(int CURR_ROWS, int CURR_COLS, char gamePiece);
+int checkFourInARow(int currRow, int currCol, int actualRow, int actualCol, char piece);
+int checkWin(int actualRow, int actualCol);
 
 
 #endif // HW1_H
