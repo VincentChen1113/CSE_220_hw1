@@ -117,6 +117,7 @@ int checkFourInARow(int currRow, int currCol, int actualRow, int actualCol, char
     if (horizonCounter >= 4 || verticalCounter >= 4 || diagonalCounter1 >= 4 || diagonalCounter2 >= 4) {
         return 1;
     }
+    return 0;
 }
 
 int checkWin(int actualRow, int actualCol){
