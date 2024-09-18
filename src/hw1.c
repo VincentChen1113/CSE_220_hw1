@@ -95,7 +95,13 @@ int checkFourInARow(int currRow, int currCol, int actualRow, int actualCol, char
         }
     }
 
-    if(horizonCounter >= 4 || verticalCounter >= 4 || diagonalCounter >= 4){
+    if(horizonCounter >= 4){
+        return 1;
+    }
+    else if(verticalCounter >= 4){
+        return 1;
+    }
+    else if(diagonalCounter >= 4){
         return 1;
     }
     else{
