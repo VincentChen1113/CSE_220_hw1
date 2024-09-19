@@ -188,7 +188,7 @@ int findSolution(int num_rows, int num_cols){
     return HEURISTICS_FAILED;
 }
 
-int pieceCounter(int num_rows, int num_cols, char piece){
+/*int pieceCounter(int num_rows, int num_cols, char piece){
     int counter = 0;
     for(int i = 0; i < num_rows; i++){
         for(int j = 0; j < num_cols; j++){
@@ -198,6 +198,17 @@ int pieceCounter(int num_rows, int num_cols, char piece){
         }
     }
     return counter;
+}*/
+
+void countPieces(int num_rows, int num_cols, int *num_x, int *num_o) {
+    *num_x = 0;
+    *num_o = 0;
+    for (int i = 0; i < num_rows; i++) {
+        for (int j = 0; j < num_cols; j++) {
+            if (board[i][j] == 'x') (*num_x)++;
+            else if (board[i][j] == 'o') (*num_o)++;
+        }
+    }
 }
 
 
@@ -218,9 +229,8 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
 
     int findSolutionResult = findSolution(num_rows, num_cols);
 
+    countPieces(num_rows, num_cols, num_x, num_o);
     if(findSolutionResult == 1){
-        *num_x = pieceCounter(num_rows, num_cols, 'x');
-        *num_o = pieceCounter(num_rows, num_cols, 'o');
         return FOUND_SOLUTION;
     }
     else if(findSolutionResult == -3){
