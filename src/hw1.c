@@ -170,7 +170,8 @@ int findSolution(int num_rows, int num_cols){
                     return INITIAL_BOARD_NO_SOLUTION;
                 }
                 else{
-                    return FOUND_SOLUTION;
+                    board[i][j] = 'x';
+                    return 1;
                 }
                }
 
@@ -179,7 +180,8 @@ int findSolution(int num_rows, int num_cols){
                     return INITIAL_BOARD_NO_SOLUTION;
                 }
                 else{
-                    return FOUND_SOLUTION;
+                    board[i][j] = 'o';
+                    return 1;
                 }
                }
             }
@@ -205,8 +207,12 @@ void countPieces(int num_rows, int num_cols, int *num_x, int *num_o) {
     *num_o = 0;
     for (int i = 0; i < num_rows; i++) {
         for (int j = 0; j < num_cols; j++) {
-            if (board[i][j] == 'x') (*num_x)++;
-            else if (board[i][j] == 'o') (*num_o)++;
+            if (board[i][j] == 'x') {
+                (*num_x)++;
+            }
+            else if (board[i][j] == 'o') {
+                (*num_o)++;
+            }
         }
     }
 }
@@ -241,13 +247,11 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
     }
 
 
-
-
     return 0;
 }
 
 char* generate_medium(const char *final_state, int num_rows, int num_cols) { 
-
+    
     return 0;
     (void) final_state;
     (void) num_rows; 
