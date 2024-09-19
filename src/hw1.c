@@ -164,8 +164,6 @@ int invalidCharactersExist(int num_rows, int num_cols){
 int findSolution(int num_rows, int num_cols, int *num_x, int *num_o){
     for(int i = 0; i < num_rows; i++){
         for(int j = 0; j < num_cols; j++){
-            *num_x = 0;
-            *num_o = 0;
 
             if(board[i][j] == '-'){
                if(checkFourInARow(i, j, num_rows, num_cols, 'x')){
@@ -195,7 +193,7 @@ int findSolution(int num_rows, int num_cols, int *num_x, int *num_o){
         }
     }
 
-    
+
     return HEURISTICS_FAILED;
 }
 
@@ -229,6 +227,8 @@ int findSolution(int num_rows, int num_cols, int *num_x, int *num_o){
 
 int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int *num_o) {
     initialize_board(initial_state, num_rows, num_cols);
+    *num_x = 0;
+    *num_o = 0;
     
 
     if(findFourInARowExist(num_rows, num_cols) == -1){
@@ -242,7 +242,7 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
         return INITIAL_BOARD_INVALID_CHARACTERS;
     }
 
-    int findSolutionResult = findSolution(num_rows, num_cols);
+    int findSolutionResult = findSolution(num_rows, num_cols, num_x, num_o);
 
     
     if(findSolutionResult == 1){
