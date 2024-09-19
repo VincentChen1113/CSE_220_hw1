@@ -203,6 +203,7 @@ int pieceCounter(int num_rows, int num_cols, char piece){
 
 int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int *num_o) {
     initialize_board(initial_state, num_rows, num_cols);
+    
 
     if(findFourInARowExist(num_rows, num_cols) == -1){
         if(invalidCharactersExist(num_rows, num_cols) == -2){
@@ -215,37 +216,23 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
         return INITIAL_BOARD_INVALID_CHARACTERS;
     }
 
-    for(int i = 0; i < num_rows; i++){
-        for(int j = 0; j < num_cols; j++){
-            if(board[i][j] == '-'){
-               if(checkFourInARow(i, j, num_rows, num_cols, 'x')){
-                if(checkFourInARow(i, j, num_rows, num_cols, 'o')){
-                    return INITIAL_BOARD_NO_SOLUTION;
-                }
-                else{
-                    *num_x = pieceCounter(num_rows, num_cols, 'x');
-                    *num_o = pieceCounter(num_rows, num_cols, 'o');
-                    return FOUND_SOLUTION;
-                }
-               }
-
-               if(checkFourInARow(i, j, num_rows, num_cols, 'o')){
-                if(checkFourInARow(i, j, num_rows, num_cols, 'x')){
-                    return INITIAL_BOARD_NO_SOLUTION;
-                }
-                else{
-                    *num_x = pieceCounter(num_rows, num_cols, 'x');
-                    *num_o = pieceCounter(num_rows, num_cols, 'o');
-                    return FOUND_SOLUTION;
-                }
-               }
-            }
-        }
+    if(findSolution(num_rows, num_cols) == 1){
+        *num_x = pieceCounter(num_rows, num_cols, 'x');
+        *num_o = pieceCounter(num_rows, num_cols, 'o');
+        return FOUND_SOLUTION;
     }
-    return HEURISTICS_FAILED;
+    else if(findSolution(num_rows, num_cols) == -3){
+        return INITIAL_BOARD_NO_SOLUTION;
+    }
+    else if(findSolution(num_rows, num_cols) == 0){
+        return HEURISTICS_FAILED;
+    }
+
+
+
+
+    return 0;
 }
-
-
 
 char* generate_medium(const char *final_state, int num_rows, int num_cols) { 
 
