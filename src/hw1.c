@@ -161,9 +161,12 @@ int invalidCharactersExist(int num_rows, int num_cols){
     return 0;
 }
 
-int findSolution(int num_rows, int num_cols){
+int findSolution(int num_rows, int num_cols, int *num_x, int *num_o){
     for(int i = 0; i < num_rows; i++){
         for(int j = 0; j < num_cols; j++){
+            *num_x = 0;
+            *num_o = 0;
+
             if(board[i][j] == '-'){
                if(checkFourInARow(i, j, num_rows, num_cols, 'x')){
                 if(checkFourInARow(i, j, num_rows, num_cols, 'o')){
@@ -171,7 +174,6 @@ int findSolution(int num_rows, int num_cols){
                 }
                 else{
                     board[i][j] = 'o';
-                    return 1;
                 }
                }
 
@@ -181,12 +183,19 @@ int findSolution(int num_rows, int num_cols){
                 }
                 else{
                     board[i][j] = 'x';
-                    return 1;
                 }
                }
             }
+            else if (board[i][j] == 'x') {
+                (*num_x)++;
+            }
+            else if (board[i][j] == 'o') {
+                (*num_o)++;
+            }
         }
     }
+
+    
     return HEURISTICS_FAILED;
 }
 
@@ -202,7 +211,7 @@ int findSolution(int num_rows, int num_cols){
     return counter;
 }*/
 
-void countPieces(int num_rows, int num_cols, int *num_x, int *num_o) {
+/*void countPieces(int num_rows, int num_cols, int *num_x, int *num_o) {
     *num_x = 0;
     *num_o = 0;
     for (int i = 0; i < num_rows; i++) {
@@ -215,7 +224,7 @@ void countPieces(int num_rows, int num_cols, int *num_x, int *num_o) {
             }
         }
     }
-}
+}*/
 
 
 int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int *num_o) {
@@ -235,7 +244,7 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
 
     int findSolutionResult = findSolution(num_rows, num_cols);
 
-    countPieces(num_rows, num_cols, num_x, num_o);
+    
     if(findSolutionResult == 1){
         return FOUND_SOLUTION;
     }
