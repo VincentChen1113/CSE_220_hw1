@@ -193,7 +193,6 @@ int findSolution(int num_rows, int num_cols, int *num_x, int *num_o){
         }
     }
 
-
     return HEURISTICS_FAILED;
 }
 
