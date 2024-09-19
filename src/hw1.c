@@ -170,7 +170,7 @@ int findSolution(int num_rows, int num_cols){
                     return INITIAL_BOARD_NO_SOLUTION;
                 }
                 else{
-                    board[i][j] = 'x';
+                    board[i][j] = 'o';
                     return 1;
                 }
                }
@@ -180,7 +180,7 @@ int findSolution(int num_rows, int num_cols){
                     return INITIAL_BOARD_NO_SOLUTION;
                 }
                 else{
-                    board[i][j] = 'o';
+                    board[i][j] = 'x';
                     return 1;
                 }
                }
