@@ -3,7 +3,7 @@
 #include <stdbool.h>
 #include <assert.h>
 
-#include "hw1.h"
+#include "../include/hw1.h"
 
 
 char board[MAX_ROWS][MAX_COLS] = {0};
@@ -20,6 +20,7 @@ void initialize_board(const char *initial_state, int num_rows, int num_cols) {
         }
     }
 }
+
 void printBoard(int NUM_ROWS, int NUM_COLS){
     for(int row = 0; row < NUM_ROWS; row++){
         for(int column = 0; column < NUM_COLS; column++){
@@ -162,9 +163,9 @@ int invalidCharactersExist(int num_rows, int num_cols){
 }
 
 int findSolution(int num_rows, int num_cols, int *num_x, int *num_o){
+    
     for(int i = 0; i < num_rows; i++){
         for(int j = 0; j < num_cols; j++){
-
             if(board[i][j] == '-'){
                if(checkFourInARow(i, j, num_rows, num_cols, 'x')){
                 if(checkFourInARow(i, j, num_rows, num_cols, 'o')){
@@ -172,6 +173,7 @@ int findSolution(int num_rows, int num_cols, int *num_x, int *num_o){
                 }
                 else{
                     board[i][j] = 'o';
+                    (*num_o)++;
                 }
                }
 
@@ -181,6 +183,7 @@ int findSolution(int num_rows, int num_cols, int *num_x, int *num_o){
                 }
                 else{
                     board[i][j] = 'x';
+                    (*num_x)++;
                 }
                }
             }
@@ -195,34 +198,6 @@ int findSolution(int num_rows, int num_cols, int *num_x, int *num_o){
 
     return HEURISTICS_FAILED;
 }
-
-/*int pieceCounter(int num_rows, int num_cols, char piece){
-    int counter = 0;
-    for(int i = 0; i < num_rows; i++){
-        for(int j = 0; j < num_cols; j++){
-            if(board[i][j] == piece){
-                counter++;
-            }
-        }
-    }
-    return counter;
-}*/
-
-/*void countPieces(int num_rows, int num_cols, int *num_x, int *num_o) {
-    *num_x = 0;
-    *num_o = 0;
-    for (int i = 0; i < num_rows; i++) {
-        for (int j = 0; j < num_cols; j++) {
-            if (board[i][j] == 'x') {
-                (*num_x)++;
-            }
-            else if (board[i][j] == 'o') {
-                (*num_o)++;
-            }
-        }
-    }
-}*/
-
 
 int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int *num_o) {
     initialize_board(initial_state, num_rows, num_cols);
@@ -259,9 +234,10 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
 }
 
 char* generate_medium(const char *final_state, int num_rows, int num_cols) { 
-    
+  
     return 0;
     (void) final_state;
     (void) num_rows; 
     (void) num_cols;
+    
 }
