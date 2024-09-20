@@ -3,7 +3,7 @@
 #include <stdbool.h>
 #include <assert.h>
 
-#include "hw1.h"
+#include "../include/hw1.h"
 
 int main(int argc, char **argv) {
     assert(argc == 4);
