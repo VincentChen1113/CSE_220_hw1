@@ -171,8 +171,10 @@ int findSolution(int num_rows, int num_cols, int *num_x, int *num_o){
             }
         }
     }
+
+    int trys = spaceCounter;
     
-    for(int trys = spaceCounter; spaceCounter > 0; trys++){
+    while(spaceCounter > 0 && trys > 0){
         for(int i = 0; i < num_rows; i++){
             for(int j = 0; j < num_cols; j++){
                 if(board[i][j] == '-'){
@@ -183,6 +185,7 @@ int findSolution(int num_rows, int num_cols, int *num_x, int *num_o){
                     else{
                         board[i][j] = 'o';
                         (*num_o)++;
+                        spaceCounter--;
                     }
                 }
 
@@ -193,29 +196,30 @@ int findSolution(int num_rows, int num_cols, int *num_x, int *num_o){
                     else{
                         board[i][j] = 'x';
                         (*num_x)++;
+                        spaceCounter--;
                     }
                 }
                 }
                 else if (board[i][j] == 'x') {
                     (*num_x)++;
+                    spaceCounter--;
                 }
                 else if (board[i][j] == 'o') {
                     (*num_o)++;
+                    spaceCounter--;
                 }
             }
         }
+        trys--;
     }
     
 
-    for(int k = 0; k < num_rows; k++){
-        for(int l = 0; l < num_cols; l++){
-            if(board[k][l] == '-'){
-                return HEURISTICS_FAILED;
-            }
-        }
+    if(spaceCounter > 0){
+        return HEURISTICS_FAILED;
     }
-    
-    return FOUND_SOLUTION;
+    else{
+        return FOUND_SOLUTION;
+    }
 }
 
 int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int *num_o) {
