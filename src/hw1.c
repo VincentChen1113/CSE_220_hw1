@@ -118,7 +118,9 @@ int checkFourInARow(int currRow, int currCol, int actualRow, int actualCol, char
     if (horizonCounter >= 4 || verticalCounter >= 4 || diagonalCounter1 >= 4 || diagonalCounter2 >= 4) {
         return 1;
     }
-    return 0;
+    else{
+        return 0;
+    }
 }
 
 int checkWin(int actualRow, int actualCol){
@@ -221,11 +223,11 @@ int findSolution(int num_rows, int num_cols, int *num_x, int *num_o){
 
     count(num_rows, num_cols, num_x, num_o);
     
-    if(spaceCounter > 0){
-        return HEURISTICS_FAILED;
+    if(spaceCounter == 0){
+        return FOUND_SOLUTION;
     }
     else{
-        return FOUND_SOLUTION;
+        return HEURISTICS_FAILED;
     }
 }
 
@@ -234,7 +236,6 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
     *num_x = 0;
     *num_o = 0;
     
-
     if(findFourInARowExist(num_rows, num_cols) == -1){
         if(invalidCharactersExist(num_rows, num_cols) == -2){
         return INITIAL_BOARD_INVALID_CHARACTERS;
@@ -248,7 +249,6 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
 
     int findSolutionResult = findSolution(num_rows, num_cols, num_x, num_o);
 
-    
     if(findSolutionResult == 1){
         return FOUND_SOLUTION;
     }
@@ -262,10 +262,13 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
 
     return 0;
 }
+
 char* generate_medium(const char *final_state, int num_rows, int num_cols){
     return 0;
     (void) final_state;
     (void) num_rows;
     (void) num_cols;
 }
+
+
 
