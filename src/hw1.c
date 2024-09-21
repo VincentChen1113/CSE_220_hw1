@@ -141,8 +141,10 @@ int checkWin(int actualRow, int actualCol){
 int findFourInARowExist(int num_rows, int num_cols){
     for(int i = 0; i < num_rows; i++){
         for(int j = 0; j < num_cols; j++){
-            if(checkFourInARow(i, j, num_rows, num_cols, board[i][j])){
+            if(board[i][j] =='o' || board[i][j] == 'x'){
+                if(checkFourInARow(i, j, num_rows, num_cols, board[i][j])){
                 return INITIAL_BOARD_FOUR_IN_A_ROW;
+                }
             }
         }
     }
