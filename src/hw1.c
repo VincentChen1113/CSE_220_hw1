@@ -284,36 +284,30 @@ char* generate_medium(const char *final_state, int num_rows, int num_cols){
         }
     }
 
-    int trys = 0;
-    int boardSize = num_rows * num_cols;
-    while(trys != boardSize){
-        int heuristicFailCounter = 0;
-        for(int i = 0; i < num_rows; i++){
-            for(int j = 0; j < num_cols; j++){
-                char temp = copiedBoard[i][j];
-                copiedBoard[i][j] = '-';
 
-                char temBoard[400];
-                int index = 0;
-                for(int c = 0; c < num_rows; c++){
-                    for(int r = 0; r < num_cols; r++){
-                        temBoard[index++] = copiedBoard[c][r];
-                    }
+    for(int i = 0; i < num_rows; i++){
+        for(int j = 0; j < num_cols; j++){
+            char temp = copiedBoard[i][j];
+            copiedBoard[i][j] = '-';
+
+            //make the board to string
+            char temBoard[400];
+            int index = 0;
+            for(int c = 0; c < num_rows; c++){
+                for(int r = 0; r < num_cols; r++){
+                    temBoard[index++] = copiedBoard[c][r];
                 }
-
-                if(solve(temBoard, num_rows, num_cols, num_x, num_o) == 0){
-                    copiedBoard[i][j] = temp;
-                    heuristicFailCounter++;
-                }
-
-                golobalBoardInitialize(copiedBoard, num_rows, num_cols);
             }
+
+            if(solve(temBoard, num_rows, num_cols, num_x, num_o) == 0){
+                copiedBoard[i][j] = temp;
+            }
+
+            //reset the global board
+            golobalBoardInitialize(copiedBoard, num_rows, num_cols);
         }
-        trys = heuristicFailCounter;
     }
     
-
-
 
     //convert 2D array to string
     char* result;
