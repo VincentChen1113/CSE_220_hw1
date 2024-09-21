@@ -51,7 +51,7 @@ int checkFourInARow(int currRow, int currCol, int actualRow, int actualCol, char
             break;
         }
     }
-    for(int j = currCol - 1; j > -1; j--){
+    for(int j = currCol - 1; j > 0; j--){
         if(board[currRow][j] == piece){
             horizonCounter++;
         }
@@ -69,7 +69,7 @@ int checkFourInARow(int currRow, int currCol, int actualRow, int actualCol, char
             break;
         }
     }
-    for(int j = currRow - 1; j > -1; j--){
+    for(int j = currRow - 1; j > 0; j--){
         if(board[j][currCol] == piece){
             verticalCounter++;
         }
@@ -87,7 +87,7 @@ int checkFourInARow(int currRow, int currCol, int actualRow, int actualCol, char
             break;
         }
     }
-    for(int i = currRow - 1, j = currCol - 1; i > -1 && j > -1; i--, j--){
+    for(int i = currRow - 1, j = currCol - 1; i > 0 && j > 0; i--, j--){
         if(board[i][j] == piece){
             diagonalCounter1++;
         }
@@ -105,7 +105,7 @@ int checkFourInARow(int currRow, int currCol, int actualRow, int actualCol, char
             break;
         }
     }
-    for(int i = currRow - 1, j = currCol + 1; i > -1 && j > -1; i--, j++){
+    for(int i = currRow - 1, j = currCol + 1; i > 0 && j > 0; i--, j++){
         if(board[i][j] == piece){
             diagonalCounter2++;
         }
@@ -224,7 +224,7 @@ int findSolution(int num_rows, int num_cols, int *num_x, int *num_o){
     else{
         return FOUND_SOLUTION;
     }
-    }
+}
 
 int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int *num_o) {
     initialize_board(initial_state, num_rows, num_cols);
