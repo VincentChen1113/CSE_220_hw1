@@ -202,11 +202,9 @@ int findSolution(int num_rows, int num_cols, int *num_x, int *num_o){
                 }
                 else if (board[i][j] == 'x') {
                     (*num_x)++;
-                    spaceCounter--;
                 }
                 else if (board[i][j] == 'o') {
                     (*num_o)++;
-                    spaceCounter--;
                 }
             }
         }
