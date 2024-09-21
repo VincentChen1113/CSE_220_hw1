@@ -196,7 +196,14 @@ int findSolution(int num_rows, int num_cols, int *num_x, int *num_o){
         }
     }
 
-    return HEURISTICS_FAILED;
+    for(int k = 0; k < num_rows; k++){
+        for(int l = 0; l < num_cols; l++){
+            if(board[k][l] == '-'){
+                return HEURISTICS_FAILED;
+            }
+        }
+    }
+    return FOUND_SOLUTION;
 }
 
 int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int *num_o) {
