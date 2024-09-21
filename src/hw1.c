@@ -192,7 +192,7 @@ int findSolution(int num_rows, int num_cols, int *num_x, int *num_o){
 
     int trys = spaceCounter;
     
-    while(spaceCounter > 0){
+    while(spaceCounter > 0 && trys > 0){
         for(int i = 0; i < num_rows; i++){
             for(int j = 0; j < num_cols; j++){
                 if(board[i][j] == '-'){
@@ -205,8 +205,7 @@ int findSolution(int num_rows, int num_cols, int *num_x, int *num_o){
                             spaceCounter--;
                         }
                     }
-
-                    if(checkFourInARow(i, j, num_rows, num_cols, 'o')){
+                    else if(checkFourInARow(i, j, num_rows, num_cols, 'o')){
                         if(checkFourInARow(i, j, num_rows, num_cols, 'x')){
                             return INITIAL_BOARD_NO_SOLUTION;
                         }
