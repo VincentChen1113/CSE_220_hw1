@@ -51,7 +51,7 @@ int checkFourInARow(int currRow, int currCol, int actualRow, int actualCol, char
             break;
         }
     }
-    for(int j = currCol - 1; j > 0; j--){
+    for(int j = currCol - 1; j > -1; j--){
         if(board[currRow][j] == piece){
             horizonCounter++;
         }
@@ -69,7 +69,7 @@ int checkFourInARow(int currRow, int currCol, int actualRow, int actualCol, char
             break;
         }
     }
-    for(int j = currRow - 1; j > 0; j--){
+    for(int j = currRow - 1; j > -1; j--){
         if(board[j][currCol] == piece){
             verticalCounter++;
         }
@@ -87,7 +87,7 @@ int checkFourInARow(int currRow, int currCol, int actualRow, int actualCol, char
             break;
         }
     }
-    for(int i = currRow - 1, j = currCol - 1; i > 0 && j > 0; i--, j--){
+    for(int i = currRow - 1, j = currCol - 1; i > -1 && j > -1; i--, j--){
         if(board[i][j] == piece){
             diagonalCounter1++;
         }
@@ -105,7 +105,7 @@ int checkFourInARow(int currRow, int currCol, int actualRow, int actualCol, char
             break;
         }
     }
-    for(int i = currRow - 1, j = currCol + 1; i > 0 && j > 0; i--, j++){
+    for(int i = currRow - 1, j = currCol + 1; i > -1 && j > -1; i--, j++){
         if(board[i][j] == piece){
             diagonalCounter2++;
         }
