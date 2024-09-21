@@ -262,11 +262,70 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
     return 0;
 }
 
+void golobalBoardInitialize(char array[MAX_ROWS][MAX_COLS], int num_rows, int num_cols){
+    for(int i = 0; i < num_rows; i++ ){
+        for(int j = 0; j < num_cols; j++){
+            board[i][j] = array[i][j];
+        }
+    }
+}
+
+
 char* generate_medium(const char *final_state, int num_rows, int num_cols){
-    return 0;
-    (void) final_state;
-    (void) num_rows;
-    (void) num_cols;
+    initialize_board(final_state, num_rows, num_cols);
+    int *num_x = 0;
+    int *num_o = 0;
+
+    //copy an array
+    char copiedBoard[num_rows][num_cols];
+    for(int i = 0; i < num_rows; i++){
+        for(int j = 0; j < num_cols; j++){
+            copiedBoard[i][j] = board[i][j];
+        }
+    }
+
+    int trys = 0;
+    int boardSize = num_rows * num_cols;
+    while(trys != boardSize){
+        int heuristicFailCounter = 0;
+        for(int i = 0; i < num_rows; i++){
+            for(int j = 0; j < num_cols; j++){
+                char temp = copiedBoard[i][j];
+                copiedBoard[i][j] = '-';
+
+                char temBoard[400];
+                int index = 0;
+                for(int c = 0; c < num_rows; c++){
+                    for(int r = 0; r < num_cols; r++){
+                        temBoard[index++] = copiedBoard[c][r];
+                    }
+                }
+
+                if(solve(temBoard, num_rows, num_cols, num_x, num_o) == 0){
+                    copiedBoard[i][j] = temp;
+                    heuristicFailCounter++;
+                }
+
+                golobalBoardInitialize(copiedBoard, num_rows, num_cols);
+            }
+        }
+        trys = heuristicFailCounter;
+    }
+    
+
+
+
+    //convert 2D array to string
+    char* result;
+    result = "0";
+    int currIndex = 0;
+    for(int i = 0; i < num_rows; i++){
+        for(int j = 0; j < num_cols; j++){
+            result[currIndex++] = copiedBoard[i][j];
+        }
+    }
+
+    return result;
 }
 
 
