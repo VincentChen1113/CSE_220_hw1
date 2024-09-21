@@ -215,9 +215,9 @@ int findSolution(int num_rows, int num_cols, int *num_x, int *num_o){
                         }
                     }
                 }
+            }
         }
         trys--;
-    }
     }
 
     count(num_rows, num_cols, num_x, num_o);
