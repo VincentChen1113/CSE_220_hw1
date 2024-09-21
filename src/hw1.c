@@ -232,7 +232,8 @@ int findSolution(int num_rows, int num_cols, int *num_x, int *num_o){
 
 int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int *num_o) {
     initialize_board(initial_state, num_rows, num_cols);
-    
+    *num_x = 0;
+    *num_o = 0;
     
     if(findFourInARowExist(num_rows, num_cols) == -1){
         if(invalidCharactersExist(num_rows, num_cols) == -2){
@@ -272,8 +273,8 @@ void golobalBoardInitialize(char array[MAX_ROWS][MAX_COLS], int num_rows, int nu
 
 char* generate_medium(const char *final_state, int num_rows, int num_cols){
     initialize_board(final_state, num_rows, num_cols);
-    int *num_x = 0;
-    int *num_o = 0;
+    int num_x = 0;
+    int num_o = 0;
 
     //copy an array
     char copiedBoard[num_rows][num_cols];
@@ -286,7 +287,8 @@ char* generate_medium(const char *final_state, int num_rows, int num_cols){
 
     for(int i = 0; i < num_rows; i++){
         for(int j = 0; j < num_cols; j++){
-            char temp = copiedBoard[i][j];
+            if(board[i][j] == 'x' || board[i][j] == 'o'){
+                char temp = copiedBoard[i][j];
             copiedBoard[i][j] = '-';
 
             //make the board to string
@@ -298,8 +300,9 @@ char* generate_medium(const char *final_state, int num_rows, int num_cols){
                 }
             }
 
-            if(solve(temBoard, num_rows, num_cols, num_x, num_o) == 0){
+            if(solve(temBoard, num_rows, num_cols, &num_x, &num_o) == 0){
                 copiedBoard[i][j] = temp;
+            }
             }
 
             //reset the global board
