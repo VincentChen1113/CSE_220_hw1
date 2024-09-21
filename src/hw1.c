@@ -163,38 +163,49 @@ int invalidCharactersExist(int num_rows, int num_cols){
 }
 
 int findSolution(int num_rows, int num_cols, int *num_x, int *num_o){
-    
-    for(int i = 0; i < num_rows; i++){
-        for(int j = 0; j < num_cols; j++){
-            if(board[i][j] == '-'){
-               if(checkFourInARow(i, j, num_rows, num_cols, 'x')){
-                if(checkFourInARow(i, j, num_rows, num_cols, 'o')){
-                    return INITIAL_BOARD_NO_SOLUTION;
-                }
-                else{
-                    board[i][j] = 'o';
-                    (*num_o)++;
-                }
-               }
-
-               if(checkFourInARow(i, j, num_rows, num_cols, 'o')){
-                if(checkFourInARow(i, j, num_rows, num_cols, 'x')){
-                    return INITIAL_BOARD_NO_SOLUTION;
-                }
-                else{
-                    board[i][j] = 'x';
-                    (*num_x)++;
-                }
-               }
-            }
-            else if (board[i][j] == 'x') {
-                (*num_x)++;
-            }
-            else if (board[i][j] == 'o') {
-                (*num_o)++;
+    int spaceCounter = 0;
+    for(int r = 0; r < num_rows; r++){
+        for(int c = 0; c < num_cols; c++){
+            if(board[r][c] == '-'){
+                spaceCounter++;
             }
         }
     }
+    
+    for(int trys = spaceCounter; spaceCounter > 0; trys++){
+        for(int i = 0; i < num_rows; i++){
+            for(int j = 0; j < num_cols; j++){
+                if(board[i][j] == '-'){
+                if(checkFourInARow(i, j, num_rows, num_cols, 'x')){
+                    if(checkFourInARow(i, j, num_rows, num_cols, 'o')){
+                        return INITIAL_BOARD_NO_SOLUTION;
+                    }
+                    else{
+                        board[i][j] = 'o';
+                        (*num_o)++;
+                    }
+                }
+
+                if(checkFourInARow(i, j, num_rows, num_cols, 'o')){
+                    if(checkFourInARow(i, j, num_rows, num_cols, 'x')){
+                        return INITIAL_BOARD_NO_SOLUTION;
+                    }
+                    else{
+                        board[i][j] = 'x';
+                        (*num_x)++;
+                    }
+                }
+                }
+                else if (board[i][j] == 'x') {
+                    (*num_x)++;
+                }
+                else if (board[i][j] == 'o') {
+                    (*num_o)++;
+                }
+            }
+        }
+    }
+    
 
     for(int k = 0; k < num_rows; k++){
         for(int l = 0; l < num_cols; l++){
@@ -203,6 +214,7 @@ int findSolution(int num_rows, int num_cols, int *num_x, int *num_o){
             }
         }
     }
+    
     return FOUND_SOLUTION;
 }
 
