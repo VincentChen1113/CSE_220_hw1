@@ -289,20 +289,20 @@ char* generate_medium(const char *final_state, int num_rows, int num_cols){
         for(int j = 0; j < num_cols; j++){
             if(board[i][j] == 'x' || board[i][j] == 'o'){
                 char temp = copiedBoard[i][j];
-            copiedBoard[i][j] = '-';
+                copiedBoard[i][j] = '-';
 
-            //make the board to string
-            char temBoard[400];
-            int index = 0;
-            for(int c = 0; c < num_rows; c++){
-                for(int r = 0; r < num_cols; r++){
-                    temBoard[index++] = copiedBoard[c][r];
+                //make the board to string
+                char temBoard[400];
+                int index = 0;
+                for(int c = 0; c < num_rows; c++){
+                    for(int r = 0; r < num_cols; r++){
+                        temBoard[index++] = copiedBoard[c][r];
+                    }
                 }
-            }
 
-            if(solve(temBoard, num_rows, num_cols, &num_x, &num_o) == 0){
-                copiedBoard[i][j] = temp;
-            }
+                if(solve(temBoard, num_rows, num_cols, &num_x, &num_o) == 0){
+                    copiedBoard[i][j] = temp;
+                }
             }
 
             //reset the global board
@@ -312,8 +312,10 @@ char* generate_medium(const char *final_state, int num_rows, int num_cols){
     
 
     //convert 2D array to string
-    char* result;
-    result = "0";
+    char* result = malloc(400 * sizeof(char)); // Allocate space for 20 characters
+    if (result == NULL) {
+        return NULL; // Check for successful allocation
+    }
     int currIndex = 0;
     for(int i = 0; i < num_rows; i++){
         for(int j = 0; j < num_cols; j++){
