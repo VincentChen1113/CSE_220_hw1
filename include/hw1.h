@@ -32,6 +32,7 @@ int checkWin(int actualRow, int actualCol);
 int findFourInARowExist(int num_rows, int num_cols);
 int invalidCharactersExist(int num_rows, int num_cols);
 int findSolution(int num_rows, int num_cols, int *num_x, int *num_o);
+void count(int num_rows, int num_cols, int *num_x, int *num_o);
 
 
 
