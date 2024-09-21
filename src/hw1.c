@@ -232,8 +232,7 @@ int findSolution(int num_rows, int num_cols, int *num_x, int *num_o){
 
 int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int *num_o) {
     initialize_board(initial_state, num_rows, num_cols);
-    *num_x = 0;
-    *num_o = 0;
+    
     
     if(findFourInARowExist(num_rows, num_cols) == -1){
         if(invalidCharactersExist(num_rows, num_cols) == -2){
