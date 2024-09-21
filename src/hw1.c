@@ -97,7 +97,7 @@ int checkFourInARow(int currRow, int currCol, int actualRow, int actualCol, char
     }
 
     int diagonalCounter2 = 1;
-    for(int i = currRow + 1, j = currCol - 1; i < actualRow && j < actualCol; i++, j--){
+    for(int i = currRow + 1, j = currCol - 1; i < actualRow && j > -1; i++, j--){
         if(board[i][j] == piece){
             diagonalCounter2++;
         }
@@ -105,7 +105,7 @@ int checkFourInARow(int currRow, int currCol, int actualRow, int actualCol, char
             break;
         }
     }
-    for(int i = currRow - 1, j = currCol + 1; i > -1 && j > -1; i--, j++){
+    for(int i = currRow - 1, j = currCol + 1; i > -1 && j < actualCol; i--, j++){
         if(board[i][j] == piece){
             diagonalCounter2++;
         }
@@ -146,6 +146,7 @@ int findFourInARowExist(int num_rows, int num_cols){
             }
         }
     }
+
     return 0;
 }
 
