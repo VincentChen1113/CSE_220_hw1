@@ -285,28 +285,37 @@ char* generate_medium(const char *final_state, int num_rows, int num_cols){
     }
 
 
-    for(int i = num_rows - 1; i > -1; i--){
-        for(int j = num_cols - 1; j > -1; j--){
+    for(int i = num_rows; i > -1; i--){
+        for(int j = num_cols; j > -1; j--){
             if(board[i][j] == 'x' || board[i][j] == 'o'){
                 char temp = copiedBoard[i][j];
                 copiedBoard[i][j] = '-';
 
                 //make the board to string
-                char temBoard[400];
+                char* temboard = malloc(400 * sizeof(char)); 
+                if (temboard == NULL) {
+                    return NULL; 
+                }
                 int index = 0;
                 for(int c = 0; c < num_rows; c++){
                     for(int r = 0; r < num_cols; r++){
-                        temBoard[index++] = copiedBoard[c][r];
+                        temboard[index++] = copiedBoard[c][r];
                     }
                 }
 
-                if(solve(temBoard, num_rows, num_cols, &num_x, &num_o) == 0){
+                if(solve(temboard, num_rows, num_cols, &num_x, &num_o) == 0){
                     copiedBoard[i][j] = temp;
                 }
-            }
 
-            //reset the global board
-            globalBoardInitialize(copiedBoard, num_rows, num_cols);
+                index = 0;
+                for(int c = 0; c < num_rows; c++){
+                    for(int r = 0; r < num_cols; r++){
+                        temboard[index++] = copiedBoard[c][r];
+                    }
+                }
+                //reset the global board
+                initialize_board(temboard, num_rows, num_cols);
+            }
         }
     }
     
