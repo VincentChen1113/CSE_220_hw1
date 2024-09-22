@@ -312,9 +312,9 @@ char* generate_medium(const char *final_state, int num_rows, int num_cols){
     
 
     //convert 2D array to string
-    char* result = malloc(400 * sizeof(char)); // Allocate space for 20 characters
+    char* result = malloc(400 * sizeof(char)); 
     if (result == NULL) {
-        return NULL; // Check for successful allocation
+        return NULL; 
     }
     int currIndex = 0;
     for(int i = 0; i < num_rows; i++){
