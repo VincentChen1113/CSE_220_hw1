@@ -270,7 +270,7 @@ void globalBoardInitialize(char array[MAX_ROWS][MAX_COLS], int num_rows, int num
     }
 }
 
-char generateResult[400]; 
+char generateResult[400] = ""; 
 
 char* generate_medium(const char *final_state, int num_rows, int num_cols){
     initialize_board(final_state, num_rows, num_cols);
