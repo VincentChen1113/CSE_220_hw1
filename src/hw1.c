@@ -296,6 +296,7 @@ char* generate_medium(const char *final_state, int num_rows, int num_cols){
                 if (temboard == NULL) {
                     return NULL; 
                 }
+
                 int index = 0;
                 for(int c = 0; c < num_rows; c++){
                     for(int r = 0; r < num_cols; r++){
@@ -306,10 +307,16 @@ char* generate_medium(const char *final_state, int num_rows, int num_cols){
                 if(solve(temboard, num_rows, num_cols, &num_x, &num_o) == 0){
                     copiedBoard[i][j] = temp;
                 }
-            }
 
-            //reset the global board
-            globalBoardInitialize(copiedBoard, num_rows, num_cols);
+                index = 0;
+                for(int c = 0; c < num_rows; c++){
+                    for(int r = 0; r < num_cols; r++){
+                        temboard[index++] = copiedBoard[c][r];
+                    }
+                }
+                //reset the global board
+                initialize_board(temboard, num_rows, num_cols);
+            }
         }
     }
     
