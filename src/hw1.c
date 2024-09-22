@@ -270,6 +270,7 @@ void globalBoardInitialize(char array[MAX_ROWS][MAX_COLS], int num_rows, int num
     }
 }
 
+char generateResult[400]; 
 
 char* generate_medium(const char *final_state, int num_rows, int num_cols){
     initialize_board(final_state, num_rows, num_cols);
@@ -316,24 +317,24 @@ char* generate_medium(const char *final_state, int num_rows, int num_cols){
                 }
                 //reset the global board
                 initialize_board(temboard, num_rows, num_cols);
+                free(temboard);
             }
         }
     }
     
 
     //convert 2D array to string
-    char* result = malloc(400 * sizeof(char)); 
-    if (result == NULL) {
-        return NULL; 
-    }
+    
     int currIndex = 0;
     for(int i = 0; i < num_rows; i++){
         for(int j = 0; j < num_cols; j++){
-            result[currIndex++] = copiedBoard[i][j];
+            generateResult[currIndex++] = copiedBoard[i][j];
         }
     }
 
-    return result;
+
+
+    return generateResult;
 }
 
 
