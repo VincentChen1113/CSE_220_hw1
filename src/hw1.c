@@ -262,7 +262,7 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
     return 0;
 }
 
-void golobalBoardInitialize(char array[MAX_ROWS][MAX_COLS], int num_rows, int num_cols){
+void globalBoardInitialize(char array[MAX_ROWS][MAX_COLS], int num_rows, int num_cols){
     for(int i = 0; i < num_rows; i++ ){
         for(int j = 0; j < num_cols; j++){
             board[i][j] = array[i][j];
@@ -285,8 +285,8 @@ char* generate_medium(const char *final_state, int num_rows, int num_cols){
     }
 
 
-    for(int i = 0; i < num_rows; i++){
-        for(int j = 0; j < num_cols; j++){
+    for(int i = num_rows - 1; i > -1; i--){
+        for(int j = num_cols - 1; j > -1; j--){
             if(board[i][j] == 'x' || board[i][j] == 'o'){
                 char temp = copiedBoard[i][j];
                 copiedBoard[i][j] = '-';
@@ -306,7 +306,7 @@ char* generate_medium(const char *final_state, int num_rows, int num_cols){
             }
 
             //reset the global board
-            golobalBoardInitialize(copiedBoard, num_rows, num_cols);
+            globalBoardInitialize(copiedBoard, num_rows, num_cols);
         }
     }
     
